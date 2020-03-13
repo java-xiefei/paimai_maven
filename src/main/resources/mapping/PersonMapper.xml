@@ -5,5 +5,36 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.paimaiDao">
+	<select id="query" resultType="auctionrecordVo">
+		SELECT
+		`auctiontime`,`auctionprice`,`aname` FROM `auctionrecord` ar
+		INNER JOIN
+		`auctionuser` act ON ar.`aid`=act.`aid`
+		WHERE
+		ar.`auctionId`=#{auctionid}
+	</select>
+	<select id="querybi" resultType="paimaiJG">
+		SELECT
+		`auctionName`,`auctionStartTime`,`auctionEndTime`,`auctionStartPrice`,MAX(`auctionPrice`)
+		cjj,`aname` FROM `auction` ac
+		INNER JOIN `auctionuser` auc ON ac.aid =
+		auc.aid
+		INNER JOIN `auctionrecord` are ON ac.`auctionId`=
+		are.`auctionId`
+		WHERE `auctionEndTime`&lt;#{sj}
+		GROUP BY are.`auctionId`
+	</select>
 
+	<select id="select1" resultType="Oneer">
+		SELECT
+		`auctionId`,`auctionName`,`auctionStartTime`,`auctionEndTime`,`auctionStartPrice`
+		FROM `auction`
+		WHERE `auctionEndTime`&gt;#{sj} and `auctionStartTime`&lt;#{sj}
+	</select>
+
+	<select id="select2" resultType="Tower">
+		SELECT `aname`,`auctionPrice` FROM `auctionuser` ac
+		INNER JOIN `auctionrecord` ar ON ac.aid=ar.`aid`
+		WHERE ar.`auctionId`= ${auctionid}
+	</select>
 </mapper>    
